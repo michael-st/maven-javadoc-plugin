@@ -299,6 +299,15 @@ public abstract class AbstractJavadocMojo
     private static final JavaVersion SINCE_JAVADOC_1_8 = JavaVersion.parse( "1.8" );
 
     /**
+     * For Javadoc options appears since Java 9.
+     * See <a href="https://docs.oracle.com/javase/9/javadoc/toc.htm">
+     * Javadoc Technology</a>
+     *
+     * @since 3.0.2
+     */
+    private static final JavaVersion SINCE_JAVADOC_9 = JavaVersion.parse( "9" );
+
+    /**
      * 
      */
     private static final JavaVersion JAVA_VERSION = JavaVersion.JAVA_SPECIFICATION_VERSION;
