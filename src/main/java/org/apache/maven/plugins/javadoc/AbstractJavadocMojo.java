@@ -4436,9 +4436,15 @@ public abstract class AbstractJavadocMojo
             cmd.createArg().setValue( "@" + FILES_FILE_NAME );
         }
 
+        /* default to platform encoding */
+        String encoding = null;
+        if ( JAVA_VERSION.compareTo( SINCE_JAVADOC_9 ) >= 0 )
+        {
+            encoding = StandardCharsets.UTF_8.name();
+        }
         try
         {
-            FileUtils.fileWrite( argfileFile.getAbsolutePath(), null /* platform encoding */,
+            FileUtils.fileWrite( argfileFile.getAbsolutePath(), encoding,
                                  StringUtils.join( files.iterator(), SystemUtils.LINE_SEPARATOR ) );
         }
         catch ( IOException e )
