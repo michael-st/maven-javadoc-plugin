@@ -498,6 +498,47 @@ public class JavadocReportTest
     }
 
     /**
+     * Method to test when the options file has umlauts.
+     *
+     * @throws Exception if any
+     */
+    public void testOptionsUmlautEncoding()
+            throws Exception
+    {
+        File testPom = new File(unit, "optionsumlautencoding-test/optionsumlautencoding-test-plugin-config.xml" );
+        JavadocReport mojo = lookupMojo( testPom );
+        mojo.execute();
+
+        File optionsFile = new File( mojo.getOutputDirectory(), "options" );
+        assertTrue( optionsFile.exists() );
+
+        // check for a part of the window title
+        String content = readFile( optionsFile );
+        assertTrue( content.contains( "Options Umlaut Encoding ö ä ü ß" ) );
+
+        File apidocs = new File( getBasedir(), "target/test/unit/optionsumlautencoding-test/target/site/apidocs" );
+
+        // package level generated javadoc files
+        assertTrue( new File( apidocs, "optionsumlautencoding/test/App.html" ).exists() );
+        assertTrue( new File( apidocs, "optionsumlautencoding/test/AppSample.html" ).exists() );
+
+        // project level generated javadoc files
+        assertTrue( new File( apidocs, "index-all.html" ).exists() );
+        assertTrue( new File( apidocs, "index.html" ).exists() );
+        assertTrue( new File( apidocs, "overview-tree.html" ).exists() );
+        assertTrue( new File( apidocs, "stylesheet.css" ).exists() );
+
+        if ( JavaVersion.JAVA_VERSION.isBefore( "10" ) )
+        {
+            assertTrue( new File( apidocs, "package-list" ).exists() );
+        }
+        else
+        {
+            assertTrue( new File( apidocs, "element-list" ).exists() );
+        }
+    }
+
+    /**
      * @throws Exception if any
      */
     public void testExceptions()
