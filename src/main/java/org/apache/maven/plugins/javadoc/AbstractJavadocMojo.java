@@ -108,6 +108,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -4383,9 +4384,15 @@ public abstract class AbstractJavadocMojo
         options.append( StringUtils.join( arguments.iterator(),
                                           SystemUtils.LINE_SEPARATOR ) );
 
+        /* default to platform encoding */
+        String encoding = null;
+        if ( JAVA_VERSION.compareTo( SINCE_JAVADOC_9 ) >= 0 )
+        {
+            encoding = StandardCharsets.UTF_8.name();
+        }
         try
         {
-            FileUtils.fileWrite( optionsFile.getAbsolutePath(), null /* platform encoding */, options.toString() );
+            FileUtils.fileWrite( optionsFile.getAbsolutePath(), encoding, options.toString() );
         }
         catch ( IOException e )
         {
