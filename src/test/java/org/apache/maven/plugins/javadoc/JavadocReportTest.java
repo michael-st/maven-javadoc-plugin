@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
@@ -190,9 +191,25 @@ public class JavadocReportTest
     private static String readFile( File file )
         throws IOException
     {
+        return readFile( file, StandardCharsets.UTF_8 );
+    }
+
+    /**
+     * Convenience method that reads the contents of the specified file object into a string with a
+     * <code>space</code> as line separator.
+     *
+     * @see #LINE_SEPARATOR
+     * @param file the file to be read
+     * @param cs charset to use
+     * @return a String object that contains the contents of the file
+     * @throws IOException if any
+     */
+    private static String readFile( File file, Charset cs )
+            throws IOException
+    {
         StringBuilder str = new StringBuilder( (int) file.length() );
 
-        for ( String strTmp : Files.readAllLines( file.toPath(), StandardCharsets.UTF_8 ) )
+        for ( String strTmp : Files.readAllLines( file.toPath(), cs ) )
         {
             str.append( LINE_SEPARATOR);
             str.append( strTmp );
@@ -513,7 +530,16 @@ public class JavadocReportTest
         assertTrue( optionsFile.exists() );
 
         // check for a part of the window title
-        String content = readFile( optionsFile );
+        String content;
+        if ( JavaVersion.JAVA_VERSION.isAtLeast( "9" ) )
+        {
+            // use UTF-8
+            content = readFile( optionsFile );
+        }
+        else
+        {
+            content = readFile( optionsFile, Charset.defaultCharset() );
+        }
         assertTrue( content.contains( "Options Umlaut Encoding ö ä ü ß" ) );
 
         File apidocs = new File( getBasedir(), "target/test/unit/optionsumlautencoding-test/target/site/apidocs" );
@@ -554,7 +580,16 @@ public class JavadocReportTest
         assertTrue( argfileFile.exists() );
 
         // check for the umlaut class name
-        String content = readFile( argfileFile );
+        String content;
+        if ( JavaVersion.JAVA_VERSION.isAtLeast( "9" ) )
+        {
+            // use UTF-8
+            content = readFile( argfileFile );
+        }
+        else
+        {
+            content = readFile( argfileFile, Charset.defaultCharset() );
+        }
         assertTrue( content.contains( "Appäöüß" ) );
 
         File apidocs = new File( getBasedir(), "target/test/unit/argfileumlautencoding-test/target/site/apidocs" );
