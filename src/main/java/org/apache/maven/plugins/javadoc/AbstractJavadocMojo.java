@@ -4376,14 +4376,14 @@ public abstract class AbstractJavadocMojo
                                           SystemUtils.LINE_SEPARATOR ) );
 
         /* default to platform encoding */
-        String encoding = null;
+        String outputFileEncoding = null;
         if ( JAVA_VERSION.isAtLeast( "9" ) )
         {
-            encoding = StandardCharsets.UTF_8.name();
+            outputFileEncoding = StandardCharsets.UTF_8.name();
         }
         try
         {
-            FileUtils.fileWrite( optionsFile.getAbsolutePath(), encoding, options.toString() );
+            FileUtils.fileWrite( optionsFile.getAbsolutePath(), outputFileEncoding, options.toString() );
         }
         catch ( IOException e )
         {
@@ -4428,14 +4428,14 @@ public abstract class AbstractJavadocMojo
         }
 
         /* default to platform encoding */
-        String encoding = null;
+        String outputFileEncoding = null;
         if ( JAVA_VERSION.isAtLeast( "9" ) )
         {
-            encoding = StandardCharsets.UTF_8.name();
+            outputFileEncoding = StandardCharsets.UTF_8.name();
         }
         try
         {
-            FileUtils.fileWrite( argfileFile.getAbsolutePath(), encoding,
+            FileUtils.fileWrite( argfileFile.getAbsolutePath(), outputFileEncoding,
                                  StringUtils.join( files.iterator(), SystemUtils.LINE_SEPARATOR ) );
         }
         catch ( IOException e )
