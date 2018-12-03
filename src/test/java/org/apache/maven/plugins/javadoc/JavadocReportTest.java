@@ -533,8 +533,7 @@ public class JavadocReportTest
         String content;
         if ( JavaVersion.JAVA_VERSION.isAtLeast( "9" ) )
         {
-            // use UTF-8
-            content = readFile( optionsFile );
+            content = readFile( optionsFile, StandardCharsets.UTF_8 );
         }
         else
         {
@@ -583,8 +582,7 @@ public class JavadocReportTest
         String content;
         if ( JavaVersion.JAVA_VERSION.isAtLeast( "9" ) )
         {
-            // use UTF-8
-            content = readFile( argfileFile );
+            content = readFile( argfileFile, StandardCharsets.UTF_8 );
         }
         else
         {
