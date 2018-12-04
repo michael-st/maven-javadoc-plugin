@@ -19,7 +19,7 @@ package argfileumlautencoding.test;
  * under the License.
  */
 
-public class Appäöüß
+public class AppÃ¤Ã¶Ã¼ÃŸ
 {
 
     public static void main( String[] args )
