@@ -579,16 +579,7 @@ public class JavadocReportTest
         assertTrue( argfileFile.exists() );
 
         // check for the umlaut class name
-        String content;
-        if ( JavaVersion.JAVA_VERSION.isAtLeast( "9" ) )
-        {
-            // use UTF-8
-            content = readFile( argfileFile );
-        }
-        else
-        {
-            content = readFile( argfileFile, Charset.defaultCharset() );
-        }
+        String content = readFile( argfileFile );
         assertTrue( content.contains( "Appäöüß" ) );
 
         File apidocs = new File( getBasedir(), "target/test/unit/argfileumlautencoding-test/target/site/apidocs" );
