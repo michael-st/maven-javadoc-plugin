@@ -43,7 +43,7 @@ under the License.
           <quiet>true</quiet>
           <verbose>false</verbose>
           <author>true</author>
-          <encoding>UTF-8</encoding>
+          <encoding>ISO-8859-1</encoding>
           <docfilessubdirs>false</docfilessubdirs>
           <linksource>false</linksource>
           <nocomment>false</nocomment>
