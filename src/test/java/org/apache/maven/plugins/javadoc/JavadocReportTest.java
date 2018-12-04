@@ -564,47 +564,6 @@ public class JavadocReportTest
     }
 
     /**
-     * Method to test when the argfile file has umlauts.
-     *
-     * @throws Exception if any
-     */
-    public void testArgfileUmlautEncoding()
-            throws Exception
-    {
-        File testPom = new File( unit, "argfileumlautencoding-test/argfileumlautencoding-test-plugin-config.xml" );
-        JavadocReport mojo = lookupMojo( testPom );
-        mojo.execute();
-
-        File argfileFile = new File( mojo.getOutputDirectory(), "argfile" );
-        assertTrue( argfileFile.exists() );
-
-        // check for the umlaut class name
-        String content = readFile( argfileFile );
-        assertTrue( content.contains( "Appäöüß" ) );
-
-        File apidocs = new File( getBasedir(), "target/test/unit/argfileumlautencoding-test/target/site/apidocs" );
-
-        // package level generated javadoc files
-        assertTrue( new File( apidocs, "argfileumlautencoding/test/Appäöüß.html" ).exists() );
-        assertTrue( new File( apidocs, "argfileumlautencoding/test/AppSample.html" ).exists() );
-
-        // project level generated javadoc files
-        assertTrue( new File( apidocs, "index-all.html" ).exists() );
-        assertTrue( new File( apidocs, "index.html" ).exists() );
-        assertTrue( new File( apidocs, "overview-tree.html" ).exists() );
-        assertTrue( new File( apidocs, "stylesheet.css" ).exists() );
-
-        if ( JavaVersion.JAVA_VERSION.isBefore( "10" ) )
-        {
-            assertTrue( new File( apidocs, "package-list" ).exists() );
-        }
-        else
-        {
-            assertTrue( new File( apidocs, "element-list" ).exists() );
-        }
-    }
-
-    /**
      * @throws Exception if any
      */
     public void testExceptions()
