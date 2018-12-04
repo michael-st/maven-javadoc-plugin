@@ -4428,14 +4428,14 @@ public abstract class AbstractJavadocMojo
         }
 
         /* default to platform encoding */
-        String outputFileEncoding = null;
+        String encoding = null;
         if ( JAVA_VERSION.isAtLeast( "9" ) )
         {
-            outputFileEncoding = StandardCharsets.UTF_8.name();
+            encoding = StandardCharsets.UTF_8.name();
         }
         try
         {
-            FileUtils.fileWrite( argfileFile.getAbsolutePath(), outputFileEncoding,
+            FileUtils.fileWrite( argfileFile.getAbsolutePath(), encoding,
                                  StringUtils.join( files.iterator(), SystemUtils.LINE_SEPARATOR ) );
         }
         catch ( IOException e )
