@@ -4429,7 +4429,7 @@ public abstract class AbstractJavadocMojo
 
         /* default to platform encoding */
         String encoding = null;
-        if ( JAVA_VERSION.isAtLeast( "9" ) )
+        if ( JAVA_VERSION.compareTo( SINCE_JAVADOC_9 ) >= 0 )
         {
             encoding = StandardCharsets.UTF_8.name();
         }
